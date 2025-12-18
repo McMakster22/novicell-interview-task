@@ -93,7 +93,7 @@ onBeforeUnmount(() => {
             subtitle="Limited-time deals on best sellers — up to 60% off. New offers drop daily, while stock lasts."
             fineprint="Discounts apply to selected items only. Prices may change during the campaign."
             :images="heroImages"
-        />
+        />  
 
 
 
