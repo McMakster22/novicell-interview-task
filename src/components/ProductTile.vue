@@ -105,7 +105,7 @@ function addToCart() {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0;
-    background: #f9f9f9;
+    padding: 0.5rem;
+    border: solid black 0.5px
 }
 </style>

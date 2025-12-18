@@ -44,5 +44,10 @@ const {
 </template>
 
 <style scoped>
-/* ...existing code... */
+  .error {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem;
+  }
 </style>

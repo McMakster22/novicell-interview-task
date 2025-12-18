@@ -46,20 +46,42 @@ function isActive(name: string) {
 </template>
 
 <style scoped>
-.header-nav { display: flex; align-items: center; gap: 1rem; }
-.header-nav__link { text-decoration: none; color: inherit; padding: 0.25rem 0.4rem; border-radius: 8px; }
-.header-nav__link--active { background: rgba(11, 116, 222, 0.12); color: #0b74de; }
-.header-nav__link--basket { display: inline-flex; align-items: center; gap: 0.4rem; }
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    text-transform: uppercase;
+}
+
+.header-nav__link {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.25rem 0.4rem;
+    border-radius: 8px;
+}
+
+.header-nav__link--active {
+    background:#000000;
+    color: #fff;
+}
+
+.header-nav__link--basket {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
 .header-nav__badge {
-  min-width: 22px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: #0b74de;
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #000000;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
 }
 </style>

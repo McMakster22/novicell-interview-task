@@ -55,7 +55,11 @@ onBeforeUnmount(() => {
         <ProductTile :product="cart.flyoutProduct" :showImage="false" />
 
         <div class="flyout-cart__actions">
-          <RouterLink class="flyout-cart__view" to="/cart" @click="cart.closeFlyout()">
+          <RouterLink
+            class="flyout-cart__action flyout-cart__view"
+            :to="{ name: 'basket' }"
+            @click="cart.closeFlyout()"
+          >
             View cart
           </RouterLink>
         </div>
@@ -83,6 +87,45 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+}
+
+.flyout-cart__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+.flyout-cart__action,
+.flyout-cart__view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.flyout-cart__action:hover,
+.flyout-cart__view:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.flyout-cart__action:active,
+.flyout-cart__view:active {
+  transform: translateY(1px);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.flyout-cart__action:focus-visible,
+.flyout-cart__view:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.35);
+  outline-offset: 2px;
 }
 
 .product-tile {

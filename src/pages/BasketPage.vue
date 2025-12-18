@@ -6,7 +6,7 @@ import { formatPrice } from '@/utils/priceFormat'
 const cart = useCartStore()
 
 const isEmpty = computed(() => cart.items.length === 0)
-const totalPrice = computed(() => cart.totalPrice.toFixed(2))
+const totalPrice = computed(() => formatPrice(cart.totalPrice))
 
 function dec(id: string, current: number) {
   cart.updateQuantity(id, current - 1)
@@ -24,13 +24,13 @@ function inc(id: string, current: number) {
       <h1 class="basket__title">Basket</h1>
       <div class="basket__summary">
         <span class="basket__count">{{ cart.totalItems }} items</span>
-        <strong class="basket__total">\${{ totalPrice }}</strong>
+        <strong class="basket__total">{{ totalPrice }}</strong>
       </div>
     </header>
 
     <div v-if="isEmpty" class="basket__empty">
       <p class="basket__empty-text">Your basket is empty.</p>
-      <RouterLink class="basket__empty-link" :to="{ name: 'products' }">Go to products</RouterLink>
+      <RouterLink class="basket__empty-link" :to="{ name: 'products' }">Please add some products to your basket.</RouterLink>
     </div>
 
     <div v-else class="basket__content">
@@ -61,7 +61,7 @@ function inc(id: string, current: number) {
               </div>
 
               <div class="basket__prices">
-                <strong class="basket__line">{{ formatPrice(item.price * item.quantity) }}$</strong>
+                <strong class="basket__line">{{ formatPrice(item.price * item.quantity) }}</strong>
               </div>
             </div>
           </div>
@@ -233,11 +233,16 @@ function inc(id: string, current: number) {
 }
 
 .basket__checkout {
-    background: #0b74de;
+    background: #000;
     color: #fff;
     border: 0;
     padding: 0.6rem 0.9rem;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.basket__empty-link:hover {
+    color: #000;
+    text-decoration: underline;
 }
 </style>

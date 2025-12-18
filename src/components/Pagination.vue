@@ -134,9 +134,8 @@ const pageButtons = computed(() => {
 }
 
 .pagination__page--active {
-  border-color: #0b74de;
-  color: #0b74de;
-  background: rgba(11, 116, 222, 0.10);
+  border-color: #000;
+  color: #000;
   font-weight: 600;
 }
 
