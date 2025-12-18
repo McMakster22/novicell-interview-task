@@ -1,3 +1,14 @@
+
+:root {
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+  background-color: #F5F7FA;
+}
+
 body {
     font-weight: 400;
     height: 100%;
@@ -14,11 +25,22 @@ img {
 }
 
 h6 {
-    font-size: 1rem;
-    margin: 0.5rem 0;
+    font-size: 12px;
     font-weight: 600;
     display: flex;
 
+    @media (min-width: 1280px) {
+        font-size: 1rem;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .grid{
@@ -36,12 +58,25 @@ h6 {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 1280px) {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
 .container{
-    margin: auto;
     padding: 0 1rem;
+}
+
+.product-tile__add{
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #333;
+    }
 }
