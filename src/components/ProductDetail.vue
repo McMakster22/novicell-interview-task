@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import type { Product } from '@/models'
 import { formatPrice } from '@/utils/priceFormat';
 
@@ -53,9 +53,9 @@ async function addToCart() {
         <h1 class="product-detail__title">{{ product.title }}</h1>
 
         <div class="product-detail__meta">
-          <span class="product-detail__price">formatPrice(product.price.toFixed(2))</span>
+          <span class="product-detail__price">{{ formatPrice(product.price) }}</span>
           <span
-            v-if="'stock' in product"
+            v-if="typeof product.stock === 'number'"
             class="product-detail__stock"
             :class="{ 'product-detail__stock--out': product.stock === 0 }"
           >
@@ -72,21 +72,21 @@ async function addToCart() {
               class="product-detail__qty-input"
               type="number"
               min="1"
-              :max="(product.stock || 9999)"
+              :max="(typeof product.stock === 'number' ? product.stock : 9999)"
               v-model.number="qty"
               aria-label="Quantity"
             />
             <button
               class="product-detail__qty-btn"
               @click="increment"
-              :disabled="product.stock ? qty >= product.stock : false"
+              :disabled="typeof product.stock === 'number' ? qty >= product.stock : false"
             >
               +
             </button>
           </div>
 
           <button
-            class="product-detail__add"
+            class="product-detail__add product-tile__add"
             :disabled="(product.stock === 0) || adding"
             @click="addToCart"
           >
@@ -101,6 +101,72 @@ async function addToCart() {
 </template>
 
 <style scoped>
-/* keep styling here or move to global; omitted for brevity */
-/* ...existing code... */
+.product-detail {
+  width: 100%;
+}
+
+.product-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .product-detail__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+.product-detail__image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.product-detail__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.product-detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.product-detail__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .product-detail__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .product-detail__add {
+    flex: 1;
+  }
+}
+
+.product-detail__qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-detail__qty-input {
+  width: 4.5rem;
+}
+
+.product-detail__add:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 </style>

@@ -1,32 +1,11 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, watch } from 'vue'
+import { computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import ProductTile from '@/components/ProductTile.vue'
 
 const cart = useCartStore()
 
 const shouldShow = computed(() => cart.flyoutOpen && !!cart.flyoutProduct)
-
-let timer: number | undefined
-
-function restartAutoClose() {
-  if (timer) window.clearTimeout(timer)
-  timer = window.setTimeout(() => {
-    cart.closeFlyout()
-  }, 3500)
-}
-
-watch(
-  () => cart.flyoutNonce,
-  () => {
-    // only auto-close if it is currently shown
-    // if (shouldShow.value) restartAutoClose()
-  }
-)
-
-onBeforeUnmount(() => {
-  if (timer) window.clearTimeout(timer)
-})
 </script>
 
 <template>
@@ -52,7 +31,7 @@ onBeforeUnmount(() => {
 
         <div class="flyout-cart__qty">Qty: {{ cart.flyoutQty }}</div>
 
-        <ProductTile :product="cart.flyoutProduct" :showImage="false" />
+        <ProductTile v-if="cart.flyoutProduct" :product="cart.flyoutProduct" :showImage="false" />
 
         <div class="flyout-cart__actions">
           <RouterLink

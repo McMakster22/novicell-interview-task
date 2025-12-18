@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PropType } from 'vue'
 import { Splide, SplideSlide } from '@splidejs/vue-splide'
 
 const props = defineProps({

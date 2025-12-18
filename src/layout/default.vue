@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
-
 import AppFooter from '@/components/AppFooter.vue';
 import AppHeader from '@/components/AppHeader.vue';
-import AppLookNavigation from '@/components/AppLookNavigation.vue';
 import FlyoutCart from '@/components/FlyoutCart.vue';
 
 </script>

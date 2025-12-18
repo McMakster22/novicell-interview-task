@@ -1,12 +1,13 @@
 // ...existing code...
 <script setup lang="ts">
-import { Product } from '@/models'
+import type { PropType } from 'vue'
+import type { Product } from '@/models'
 import { useCartStore } from '@/stores/cart'
 import { formatPrice } from '@/utils/priceFormat'
 
 const props = defineProps({
   product: {
-    type: Product,
+    type: Object as PropType<Product>,
     required: true,
   },
   showImage: {

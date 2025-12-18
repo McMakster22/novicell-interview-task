@@ -80,3 +80,8 @@ a:hover {
         background-color: #333;
     }
 }
+
+.default-layout .main-content .home-page,
+.default-layout .container:has(.home-page)  {
+    padding: 0;
+}

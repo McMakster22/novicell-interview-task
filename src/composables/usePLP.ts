@@ -40,7 +40,9 @@ function shallowEqualStringMap(a: Record<string, string>, b: Record<string, stri
   if (ak.length !== bk.length) return false
   for (let i = 0; i < ak.length; i++) {
     const k = ak[i]
-    if (k !== bk[i]) return false
+    const kb = bk[i]
+    if (k == null || kb == null) return false
+    if (k !== kb) return false
     if (a[k] !== b[k]) return false
   }
   return true

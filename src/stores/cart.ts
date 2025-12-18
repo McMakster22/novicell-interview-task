@@ -64,10 +64,6 @@ function toApiProducts(items: CartItem[]): ApiCartProduct[] {
     category: '',
     image: i.image ?? '',
     quantity: i.quantity,
-    flyoutOpen: false,
-    flyoutProduct: null,
-    flyoutQty: 0,
-    flyoutNonce: 0,
   }))
 }
 
@@ -81,8 +77,6 @@ function fromApiProducts(products: ApiCartProduct[]): CartItem[] {
   }))
 }
 
-const productCache = new Map<number, Product>()
-
 export const useCartStore = defineStore('cart', {
   state: (): CartState => {
     const ctx = safeLoadRemoteContext()
@@ -94,7 +88,7 @@ export const useCartStore = defineStore('cart', {
     syncError: null,
     lastSyncedAt: null,
     flyoutOpen: false,
-    flyoutProduct: undefined,
+    flyoutProduct: null,
     flyoutQty: 0,
     flyoutNonce: 0
 }

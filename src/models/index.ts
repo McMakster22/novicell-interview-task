@@ -1,1 +1,1 @@
-export { default as Product } from '@/models/product/ProductModel';
+export type { Product } from '@/models/product/ProductModel';
