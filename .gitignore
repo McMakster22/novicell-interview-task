@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# TypeScript build artifacts (should not be committed)
+*.tsbuildinfo
+vite.config.js
+vite.config.js.map
+vite.config.d.ts
+
+# Accidental emit into src/ (should never happen)
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
