@@ -120,9 +120,15 @@ async function addToCart() {
 }
 
 .product-detail__image {
-  width: 100%;
+  width: 50%;
   height: auto;
   object-fit: cover;
+}
+
+.product-detail__media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-detail__details {
@@ -152,6 +158,7 @@ async function addToCart() {
 
   .product-detail__add {
     flex: 1;
+    max-width: 30rem;
   }
 }
 
@@ -169,4 +176,9 @@ async function addToCart() {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.product-detail__description{
+  width: 30rem;
+}
+
 </style>
