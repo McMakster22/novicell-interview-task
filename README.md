@@ -9,8 +9,6 @@ It demonstrates a scalable component/page architecture, a small foundational UI 
 - Dev server: `npm run dev`
 - Typecheck + build: `npm run build`
 
-Optional (component library / stories): `npm run storybook`
-
 ---
 
 ## 1) Architecture design
@@ -73,39 +71,39 @@ Recommended next steps (high-level):
 
 ```mermaid
 flowchart TD
-	U[User] --> R[Vue Router]
-	R --> L[Layout resolver (route.meta.layoutKey)]
-	L --> PV[PageView (route.meta.pageKey)]
-	PV --> P[Lazy-loaded Page]
-	P --> C[App components]
-	C --> UI[UI library components (src/ui)]
+  U["User"] --> R["Vue Router"]
+  R --> L["Layout resolver (route.meta.layoutKey)"]
+  L --> PV["PageView (route.meta.pageKey)"]
+  PV --> P["Lazy-loaded Page"]
+  P --> C["App components"]
+  C --> UI["UI library components (src/ui)"]
 
-	P --> CMP[Composables (usePLP/usePDP)]
-	CMP --> API[API client (src/api)]
-	API --> NET[(Network)]
+  P --> CMP["Composables (usePLP/usePDP)"]
+  CMP --> API["API client (src/api)"]
+  API --> NET[(Network)]
 
-	C --> S[Pinia store (cart)]
-	P --> S
+  C --> S["Pinia store (cart)"]
+  P --> S
 ```
 
 ### Component hierarchy (typical)
 
 ```mermaid
 flowchart TB
-	App[App.vue] --> Layout[layout/*.vue]
-	Layout --> Header[AppHeader + AppHeaderNavigation]
-	Layout --> PageView[PageView]
-	Layout --> Footer[AppFooter]
+  App["App.vue"] --> Layout["layout/*.vue"]
+  Layout --> Header["AppHeader + AppHeaderNavigation"]
+  Layout --> PageView["PageView"]
+  Layout --> Footer["AppFooter"]
 
-	PageView --> PLP[ProductListPage]
-	PLP --> Filters[ProductFilters]
-	PLP --> Grid[Product grid]
-	Grid --> Card[ProductTile / UI ProductCard]
-	PLP --> Pagination
+  PageView --> PLP["ProductListPage"]
+  PLP --> Filters["ProductFilters"]
+  PLP --> Grid["Product grid"]
+  Grid --> Card["ProductTile / UI ProductCard"]
+  PLP --> Pagination["Pagination"]
 
-	PageView --> PDP[ProductPage]
-	PDP --> Detail[ProductDetail]
-	Detail --> Add[Add to cart]
+  PageView --> PDP["ProductPage"]
+  PDP --> Detail["ProductDetail"]
+  Detail --> Add["Add to cart"]
 ```
 
 ---
@@ -119,6 +117,23 @@ Design goals:
 - Stateless by default (emit events instead of depending on the store).
 - Documented via stories.
 - Packagable later as a standalone npm package (e.g. in a monorepo workspace).
+
+### Current UI components
+
+- `Hero.vue`: Campaign hero section (title/subtitle/fineprint + carousel images)
+- `ProductCard.vue`: Product card with PDP link + price + "Add to cart" action (emits `add`)
+- `FeaturedProducts.vue`: Simple grid wrapper around `ProductCard` (emits `add`)
+
+They are exported via `src/ui/index.ts` so pages can import from `@/ui`.
+
+### Using UI components in pages
+
+Example (Home page): `src/pages/HomePage.vue` uses `Hero` + `FeaturedProducts`.
+
+- Data stays in the page (fetch products, pick featured items)
+- UI components emit events (e.g. `add`) and the page decides how to handle them (e.g. call `cartStore.addProduct(product, 1)`)
+
+This keeps `src/ui` components reusable and avoids coupling them to app-specific state.
 
 Suggested future packaging approach:
 
@@ -152,4 +167,4 @@ Recommended next steps:
 
 - Keyboard focus states for all interactive elements.
 - Proper `aria-live` usage for cart updates.
-- Add automated a11y checks in Storybook (`@storybook/addon-a11y`).
+- Add automated a11y checks (e.g. an axe-based CI check for key pages/components).

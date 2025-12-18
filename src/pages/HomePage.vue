@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-import SplideCarousel from '@/components/SplideCarousel.vue';
 import { getProducts } from '@/api'
 import balloon from '@/assets/svg/balloon.svg'
+import type { Product } from '@/models'
+import { FeaturedProducts, Hero } from '@/ui'
+import { useCartStore } from '@/stores/cart'
 
 const heroImages = ref<string[]>([])
+const featuredProducts = ref<Product[]>([])
+
+const cartStore = useCartStore()
+
+function addFeaturedToCart(product: Product) {
+    cartStore.addProduct(product, 1)
+}
 
 // Countdown timer (simple: end time is 48h from first load)
 const saleEndsAt = ref<number>(Date.now() + 48 * 60 * 60 * 1000)
@@ -63,6 +72,8 @@ onMounted(async () => {
 
   const products = await getProducts()
 
+    featuredProducts.value = products.slice(0, 8)
+
   heroImages.value = products
     .map(p => p.image)
     .filter((src): src is string => typeof src === 'string' && src.length > 0)
@@ -76,16 +87,14 @@ onBeforeUnmount(() => {
 
 <template>
     <div class="home-page">
-        <section class="home-page__hero" aria-label="Black Friday">
-            <h1 class="home-page__title">Black Friday Sale</h1>
-            <p class="home-page__subtitle">
-                Limited-time deals on best sellers — up to 60% off. New offers drop daily, while stock lasts.
-            </p>
-            <p class="home-page__fineprint">
-                Discounts apply to selected items only. Prices may change during the campaign.
-            </p>
-            <SplideCarousel :images="heroImages" />
-        </section>
+        <Hero
+            class="home-page__hero"
+            title="Black Friday Sale"
+            subtitle="Limited-time deals on best sellers — up to 60% off. New offers drop daily, while stock lasts."
+            fineprint="Discounts apply to selected items only. Prices may change during the campaign."
+            :images="heroImages"
+        />
+
 
 
         <section class="home-page__balloon-stage" aria-label="Sale countdown">
@@ -117,6 +126,7 @@ onBeforeUnmount(() => {
                 }"
             />
         </section>
+        <FeaturedProducts :products="featuredProducts" @add="addFeaturedToCart" />
     </div>
 </template>
 
@@ -160,6 +170,28 @@ onBeforeUnmount(() => {
     padding: 1rem;
 }
 
+.home-page__hero :deep(.ui-hero__title) {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.home-page__hero :deep(.ui-hero__subtitle) {
+    margin: 0.6rem 0 0;
+    font-size: 2rem;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.home-page__hero :deep(.ui-hero__fineprint) {
+    margin: 0.5rem 0 0;
+    color: #fff;
+    padding: 1rem;
+}
+
 @media (min-width: 1024px) {
     .home-page {
         padding: 2rem 1rem;
@@ -174,6 +206,14 @@ onBeforeUnmount(() => {
     }
 
     .home-page__subtitle {
+        font-size: 1.05rem;
+    }
+
+    .home-page__hero :deep(.ui-hero__title) {
+        font-size: 6rem;
+    }
+
+    .home-page__hero :deep(.ui-hero__subtitle) {
         font-size: 1.05rem;
     }
 }
