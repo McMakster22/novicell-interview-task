@@ -3,15 +3,6 @@
 This repository is a small e-commerce SPA built with Vue 3, Vite, Vue Router and Pinia.
 It demonstrates a scalable component/page architecture, a small foundational UI component library, and production-oriented concerns such as code-splitting, loading/error states, and accessibility basics.
 
-## Quick start
-
-- Install: `npm install`
-- Dev server: `npm run dev`
-- Typecheck + build: `npm run build`
-
-Optional (component library / stories): `npm run storybook`
-
----
 
 ## 1) Architecture design
 
