@@ -1,0 +1,47 @@
+body {
+    font-weight: 400;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 3/4;
+}
+
+h6 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    font-weight: 600;
+    display: flex;
+
+}
+
+.grid{
+    display: grid;
+    grid-column-end: span 12;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto;
+
+    @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.container{
+    margin: auto;
+    padding: 0 1rem;
+}
